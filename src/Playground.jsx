@@ -1,36 +1,19 @@
 import React, {useState} from 'react'
-import boxes from './boxes';
-import Box from './components/Box'
+import jokesData from './jokesData'
+import Joke from './components/Joke'
 
 export default function Playground() {
-  [arr, setArr] = useState(boxes)
-
-  const toggle = (id) => {
-    setArr([
-      ...arrr,
-      {
-        id: id,
-        on: 
-      }
-    ])
-  }
-
-  const arrElements = arr.map( (element) => {
-    return (
-      <Box
-        key={element.id} 
-        id={element.id} 
-        isOn={element.on} 
-        handleClick={toggle} 
-      />
-    )
-  })
-
-  
-
   return (
     <div>
-      {arrElements}
+      <h3>Playground</h3>
+
+      {
+        jokesData.map( ({id, setup, punchline}) => {
+          return (
+            <Joke key={id} headline={setup} punchline={punchline}/>
+          )
+        })
+      }
     </div>
   );
 }
