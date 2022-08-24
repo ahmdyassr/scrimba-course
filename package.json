@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/ahmdyassr/scrimba-react-app#readme",
   "devDependencies": {
+    "eslint": "^8.22.0",
+    "eslint-plugin-react": "^7.30.1",
     "parcel": "^2.7.0",
     "process": "^0.11.10"
   },

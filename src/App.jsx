@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import Header from './components/header';
 import Meme from './components/meme';
 import Counter from './components/counter';
