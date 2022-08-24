@@ -1,8 +1,8 @@
 import React from 'react'
 import {createRoot} from 'react-dom/client'
-import Playground from './playground'
+import App from './app'
 
 const root = createRoot(document.getElementById('root'))
 root.render(
-  <Playground />
+  <App />
 );
