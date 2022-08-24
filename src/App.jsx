@@ -1,14 +1,15 @@
 import React from 'react'
 import Header from './components/header';
 import Meme from './components/meme';
-import Counter from './components/counter';
+import Playground from './Playground';
 
 export default function App() {
   return (
     <div className='app'>
-      <Header />
-      <Meme />
-      <Counter number={0}/>
+      {/* <Header />
+      <Meme /> */}
+      
+      <Playground />
     </div>
   );
 }

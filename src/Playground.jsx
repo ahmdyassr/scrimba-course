@@ -1,19 +1,28 @@
 import React, {useState} from 'react'
-import jokesData from './jokesData'
-import Joke from './components/Joke'
 
 export default function Playground() {
-  return (
-    <div>
-      <h3>Playground</h3>
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: ''
+  })
 
-      {
-        jokesData.map( ({id, setup, punchline}) => {
-          return (
-            <Joke key={id} headline={setup} punchline={punchline}/>
-          )
-        })
+  function handleChange(e) {
+    setFormData( prevFormData => {
+      return {
+        ...prevFormData,
+        [e.target.name]: e.target.value
       }
-    </div>
+    })  
+
+    console.log(formData)
+  }
+
+  return (
+    <form action="">
+      <input type='text' name='firstName' placeholder='First Name' value={formData.firstName.value} onChange={handleChange} />
+      <input type='text' name='lastName' placeholder='Second Name' value={formData.lastName.value} onChange={handleChange} />
+      <input type='email' name='email' placeholder='Email Address' value={formData.email.value} onChange={handleChange} />
+    </form>
   );
 }
