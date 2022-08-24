@@ -1,9 +1,16 @@
-import React, {useState} from 'react';
-import memesData from '../memesData';
-
+import React, {useState, useEffect} from 'react';
 
 export default function Meme() {
-  const [memesArr, setMemesArr] = useState(memesData.data.memes);
+  const [memesArr, setMemesArr] = useState([]);
+  
+  useEffect(() => {
+    fetch('https://api.imgflip.com/get_memes')
+      .then(res => res.json())
+      .then((data) => {
+        setMemesArr(data.data.memes)
+      })
+  }, [])
+
   const [meme, setMeme] = useState({
     topText: '',
     bottomText: '',

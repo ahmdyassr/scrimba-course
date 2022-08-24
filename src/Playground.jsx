@@ -1,50 +1,29 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 export default function Playground() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    confirmedPassword: '',
-    isJoined: true
-  })
+  const [exampleData, setExampleData] = useState({})
+  const [count, setCount] = useState(1)
 
-  const handleChange = function(e) {
-    let {name, value, checked} = e.target;
+  useEffect(() => {
+    fetch(`https://swapi.dev/api/people/${count}`)
+      .then(res => res.json())
+      .then(data => setExampleData(data))
+    console.log('effect ran!')
+  }, [count])
 
-    setFormData( (prevFormData) => {
-      return {
-        ...prevFormData,
-        [name]: name === 'isJoined' ? checked : value
-      }
-    })
-  }
-
-  const handleSubmit = function(e) {
-    e.preventDefault();
-    
-    if (formData.password !== formData.confirmedPassword) {
-      return console.log('New passoword doesn\'t match')
-    }
-
-    if (formData.isJoined === true) {
-      console.log('Thanks for joining the newsletter!')
-    }
-
-    console.log('Form submitted successfully!')
+  const getNext = () => {
+    setCount(prevCount => prevCount + 1)
   }
 
   return (
-    <div className="wrapper">
-      <form className="form" onSubmit={handleSubmit}>
-        <input name='email' type="email" placeholder='Email Address' value={formData.email.value} onChange={handleChange} />
-        <input name='password' type="password" placeholder='Password' value={formData.password.value} onChange={handleChange} />
-        <input name='confirmedPassword' type="password" placeholder='Confirm Password'  value={formData.confirmedPassword.value} onChange={handleChange} />
-
-        <input name='isJoined' id="newsletter" type="checkbox" checked={formData.isJoined} onChange={handleChange}/>
-        <label htmlFor="newsletter">I want to join the newsletter</label>
-
-        <button>Sign Up</button>
-      </form>
+    <div>
+      <button onClick={getNext}>Next One</button>
+      <h3>Here is the data you requested: </h3>
+      <pre>
+        <code>
+          { JSON.stringify(exampleData, null ,2)}
+        </code>
+      </pre>
     </div>
   );
 }
