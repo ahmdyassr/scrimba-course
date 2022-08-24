@@ -1,28 +1,50 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
 
 export default function Playground() {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: ''
+    email: '',
+    password: '',
+    confirmedPassword: '',
+    isJoined: true
   })
 
-  function handleChange(e) {
-    setFormData( prevFormData => {
+  const handleChange = function(e) {
+    let {name, value, checked} = e.target;
+
+    setFormData( (prevFormData) => {
       return {
         ...prevFormData,
-        [e.target.name]: e.target.value
+        [name]: name === 'isJoined' ? checked : value
       }
-    })  
+    })
+  }
 
-    console.log(formData)
+  const handleSubmit = function(e) {
+    e.preventDefault();
+    
+    if (formData.password !== formData.confirmedPassword) {
+      return console.log('New passoword doesn\'t match')
+    }
+
+    if (formData.isJoined === true) {
+      console.log('Thanks for joining the newsletter!')
+    }
+
+    console.log('Form submitted successfully!')
   }
 
   return (
-    <form action="">
-      <input type='text' name='firstName' placeholder='First Name' value={formData.firstName.value} onChange={handleChange} />
-      <input type='text' name='lastName' placeholder='Second Name' value={formData.lastName.value} onChange={handleChange} />
-      <input type='email' name='email' placeholder='Email Address' value={formData.email.value} onChange={handleChange} />
-    </form>
+    <div className="wrapper">
+      <form className="form" onSubmit={handleSubmit}>
+        <input name='email' type="email" placeholder='Email Address' value={formData.email.value} onChange={handleChange} />
+        <input name='password' type="password" placeholder='Password' value={formData.password.value} onChange={handleChange} />
+        <input name='confirmedPassword' type="password" placeholder='Confirm Password'  value={formData.confirmedPassword.value} onChange={handleChange} />
+
+        <input name='isJoined' id="newsletter" type="checkbox" checked={formData.isJoined} onChange={handleChange}/>
+        <label htmlFor="newsletter">I want to join the newsletter</label>
+
+        <button>Sign Up</button>
+      </form>
+    </div>
   );
 }
