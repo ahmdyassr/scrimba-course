@@ -4,11 +4,14 @@ export default function Meme() {
   const [memesArr, setMemesArr] = useState([]);
   
   useEffect(() => {
-    fetch('https://api.imgflip.com/get_memes')
-      .then(res => res.json())
-      .then((data) => {
-        setMemesArr(data.data.memes)
-      })
+
+    const getMemes = async () => {
+      const res = await fetch('https://api.imgflip.com/get_memes')
+      const data = await res.json()
+      setMemesArr(data.data.memes)
+    }
+
+    getMemes()
   }, [])
 
   const [meme, setMeme] = useState({
